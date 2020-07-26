@@ -1,12 +1,24 @@
 import React from 'react';
+
 import { View, Text } from 'react-native';
 
-import { Container } from './styles';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+
+import { Container, Form, Input, SubmitButton } from './styles';
 
 export default function Main(){
   return (
     <Container >
-      <Text>Main Screen</Text>
+      <Form>
+        <Input
+          autoCorrect={false}
+          autoCapitalize="none"
+          placeholder="Adicionar usuário"
+        />
+        <SubmitButton>
+          <Icon name="add" size={20} color="#FFF"/>
+        </SubmitButton>
+      </Form>
     </Container>
   );
 }
@@ -18,5 +30,5 @@ Main.navigationOptions = {
       backgroundColor: '#7159c1',
     },
     headerTitleAlign: 'center',
-    headerTintColor: '#FFF'
+    headerTintColor: '#FFFFFF'
 };
