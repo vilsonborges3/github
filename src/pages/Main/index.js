@@ -12,4 +12,11 @@ export default function Main(){
 }
 
 Main.navigationOptions = {
+    title: 'Usuários',
+    headerBackTitleVisible: false,
+    headerStyle: {
+      backgroundColor: '#7159c1',
+    },
+    headerTitleAlign: 'center',
+    headerTintColor: '#FFF'
 };

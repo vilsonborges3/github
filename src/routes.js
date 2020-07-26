@@ -17,15 +17,7 @@ const Routes = () => {
         <Stack.Screen
           name='Main'
           component={Main}
-          options={{
-            title: 'Usuários',
-            headerBackTitleVisible: false,
-            headerStyle: {
-              backgroundColor: '#7159c1',
-            },
-            headerTitleAlign: 'center',
-            headerTintColor: '#FFF'
-          }}
+          options={Main.navigationOptions}
         />
         <Stack.Screen name='User' component={User}/>
       </Stack.Navigator>
