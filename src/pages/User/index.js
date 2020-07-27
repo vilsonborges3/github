@@ -25,6 +25,7 @@ export default class User extends Component {
   state = {
     stars: [],
     loading: false,
+    numPage: 1,
   }
 
   async componentDidMount(){
@@ -32,12 +33,38 @@ export default class User extends Component {
 
     const { user } = route.params;
 
-    this.setState({  loading: true });
+    this.setState({  loading: true, stars: []});
 
     const response = await api.get(`/users/${user.login}/starred`);
 
     this.setState({ stars: response.data, loading: false });
   }
+
+  loadMore = async () => {
+    console.log('entrou');
+
+    this.setState({  loading: true });
+
+    const { numPage } = this.state;
+
+    let newPage = numPage + 1;
+
+    console.log(newPage);
+
+    const { route } = this.props;
+
+    const { user } = route.params;
+
+    const response = await api
+      .get(`/users/${user.login}/starred?page=${String(newPage)}`);
+
+    this.setState({
+      numPage: newPage,
+      stars: response.data,
+      loading: false
+    });
+  }
+
   render(){
     const { route } = this.props;
     const { user } = route.params;
@@ -57,6 +84,8 @@ export default class User extends Component {
           <Stars
           data={stars}
           keyExtractor={star => String(star.id)}
+          onEndReachedThreshold={0.2} // Carrega mais itens quando chegar em 20% do fim
+          onEndReached={this.loadMore} // Função que carrega mais itens
           renderItem={({ item }) => (
             <Starred>
               <OwnerAvatar source={{ uri: item.owner.avatar_url}}/>
