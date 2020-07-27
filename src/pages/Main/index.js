@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import api from '../../services/api';
 
+import PropTypes from 'prop-types';
 import { Keyboard, ActivityIndicator } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -23,13 +24,29 @@ from './styles';
 
 
 export default class Main extends Component {
+  static navigationOptions = {
+    title: 'Usuários',
+    headerBackTitleVisible: false,
+    headerStyle: {
+      backgroundColor: '#7159c1',
+    },
+    headerTitleAlign: 'center',
+    headerTintColor: '#FFFFFF'
+};
+
+static propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func,
+  }).isRequired,
+};
+
   state = {
     newUser: '',
     users: [],
     loading: false,
   }
 
-  async componentDidMount(){
+  async componentDidMount(props){
     const users = await AsyncStorage.getItem('users');
     if(users){
       this.setState({ users: JSON.parse(users) });
@@ -68,9 +85,13 @@ export default class Main extends Component {
       loading: false,
     });
 
-    console.log(this.state.users);
-
     Keyboard.dismiss();
+  }
+
+  handleNavigate = (user) => {
+    const { navigation } = this.props;
+
+    navigation.navigate('User', { user });
   }
   render() {
     const { users, newUser, loading } = this.state;
@@ -101,9 +122,9 @@ export default class Main extends Component {
           renderItem={({item}) => (
             <User>
               <Avatar source={{ uri: item.avatar}}/>
-              <Name>{item.name}</Name>
-              <Bio>{item.bio}</Bio>
-              <ProfileButton onPress={() => {}}>
+              <Name>{item.name }</Name>
+              <Bio>{ item.bio }</Bio>
+              <ProfileButton onPress={() => this.handleNavigate(item)}>
                 <ProfileButtonText>Ver Perfil</ProfileButtonText>
               </ProfileButton>
             </User>
@@ -113,13 +134,3 @@ export default class Main extends Component {
     );
   }
 }
-
-Main.navigationOptions = {
-    title: 'Usuários',
-    headerBackTitleVisible: false,
-    headerStyle: {
-      backgroundColor: '#7159c1',
-    },
-    headerTitleAlign: 'center',
-    headerTintColor: '#FFFFFF'
-};
