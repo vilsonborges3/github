@@ -26,15 +26,12 @@ from './styles';
 export default class Main extends Component {
   static navigationOptions = {
     title: 'Usuários',
-    headerBackTitleVisible: false,
-    headerStyle: {
-      backgroundColor: '#7159c1',
-    },
-    headerTitleAlign: 'center',
-    headerTintColor: '#FFFFFF'
 };
 
 static propTypes = {
+  /**
+   * validação das propriedades que serão enviadas para a outra tela
+   */
   navigation: PropTypes.shape({
     navigate: PropTypes.func,
   }).isRequired,

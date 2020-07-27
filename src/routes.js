@@ -10,19 +10,31 @@ import User from './pages/User';
 const Stack = createStackNavigator();
 
 const Routes = () => {
-
+  options = {
+    headerBackTitleVisible: false,
+    headerStyle: {
+      backgroundColor: '#7159c1',
+    },
+    headerTitleAlign: 'center',
+    headerTintColor: '#FFFFFF'
+  }
   return (
     <NavigationContainer initialRouteName= 'Main'>
-      <Stack.Navigator >
+      <Stack.Navigator screenOptions={options} >
         <Stack.Screen
           name='Main'
           component={Main}
           options={Main.navigationOptions}
         />
-        <Stack.Screen name='User' component={User}/>
+        <Stack.Screen
+          name='User'
+          component={User}
+          options={User.navigationOptions}
+        />
       </Stack.Navigator>
     </NavigationContainer>
     );
 }
+
 
 export default Routes;

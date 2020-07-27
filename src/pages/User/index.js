@@ -1,10 +1,24 @@
-import React from 'react';
-import { View } from 'react-native';
-
+import React, {Component} from 'react';
+import { View, Text } from 'react-native';
+import { useNavigation } from '@react-navigation/native'
 // import { Container } from './styles';
 
-const User = () => {
-  return <View />;
-}
+export default class User extends Component {
+  static navigationOptions = () => ({
 
-export default User;
+  });
+
+
+  async componentDidMount(){
+
+  }
+  render(){
+    return (<View>
+      <Text>
+        {
+          JSON.stringify(this.props.route)
+        }
+      </Text>
+    </View>);
+  }
+}
