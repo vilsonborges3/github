@@ -11,6 +11,7 @@ import {
   Bio,
   Stars,
   Starred,
+  ButtonRep,
   OwnerAvatar,
   Info,
   Title,
@@ -65,6 +66,12 @@ export default class User extends Component {
     });
   }
 
+  handleNavigate = (repository) => {
+    const { navigation } = this.props;
+
+    navigation.navigate('Repository', { repository });
+  }
+
   render(){
     const { route } = this.props;
     const { user } = route.params;
@@ -87,13 +94,15 @@ export default class User extends Component {
           onEndReachedThreshold={0.2} // Carrega mais itens quando chegar em 20% do fim
           onEndReached={this.loadMore} // Função que carrega mais itens
           renderItem={({ item }) => (
-            <Starred>
-              <OwnerAvatar source={{ uri: item.owner.avatar_url}}/>
-              <Info>
-                <Title>{item.name}</Title>
-                <Author>{item.owner.login}</Author>
-              </Info>
-            </Starred>
+            <ButtonRep onPress={() => this.handleNavigate(item)}>
+              <Starred>
+                  <OwnerAvatar source={{ uri: item.owner.avatar_url}}/>
+                  <Info>
+                    <Title>{item.name}</Title>
+                    <Author>{item.owner.login}</Author>
+                  </Info>
+              </Starred>
+            </ButtonRep>
 
           )}
         />
